@@ -103,11 +103,32 @@
 
                         var url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&APPID=69c389dfb563131f349a636a52ab2f89"
                         $.getJSON(url, function(data){
-                            console.log(data);
-                            var weatherInfo= Math.round(data.main.temp/10);
+                            console.log(data.main.temp/10);
+                            var isCel = true;
+                            var isFar = false;
+                            var cel = Math.round(data.main.temp /10);
+                            var far;
+
+                            var weatherInfo = Math.round(data.main.temp /10);
                             var weatherDescription = data.weather[0].description;
                             $("#weather").html(weatherInfo);
                             $("#description").html(weatherDescription);
+
+                            $("#weather").click(function(){
+
+                                if(isCel) {
+                                    far = (cel * 9 / 5) + 32;
+                                    $("span#weather").html(far);
+                                    isCel = false;
+                                    isFar= true;
+                                }else{
+//                                  far = $("span#weather").val();
+                                    cel = (far - 32) * 5 / 9;
+                                    $("span#weather").html(cel);
+                                    isCel = true;
+                                    isFar = false;
+                                }
+                            });
                         });
                 }
             }
