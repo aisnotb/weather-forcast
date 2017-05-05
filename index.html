@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>weahter focast | by carson</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <header>
+        <h1>Weather forcast for <span id="cityName"></span></h1>
+    </header>
+    <div class="container">
+        <div class="icon">
+            <canvas id="icon1" width="256" height="256"></canvas>
+            <!-- <canvas id="icon2" width="128" height="128"></canvas> -->
+        </div>
+        <div class="info">
+            <span id="time"></span>
+            <span id="weather"></span>
+            <span id="description">show description</span>
+        </div>
+
+        <footer>Designed and Created by <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp;Carson&nbsp;<i class="fa fa-heart-o" aria-hidden="true"></i></a></footer>
+    </div>
+
+    <script src="weather.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script>
+          var skycons = new Skycons({"color": "white"});
+          // on Android, a nasty hack is needed: {"resizeClear": true}
+
+          // you can add a canvas by it's ID...
+          skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
+
+          // ...or by the canvas DOM element itself.
+          skycons.add(document.getElementById("icon2"), Skycons.RAIN);
+
+          // if you're using the Forecast API, you can also supply
+          // strings: "partly-cloudy-day" or "rain".
+
+          // start animation!
+          skycons.play();
+
+          // you can also halt animation with skycons.pause()
+
+          // want to change the icon? no problem:
+          skycons.set("icon1", Skycons.PARTLY_CLOUDY_NIGHT);
+
+          // want to remove one altogether? no problem:
+          skycons.remove("icon2");
+    </script>
+    <script type="text/javascript">
+        function padding(val){
+            if(val<10){
+                return '0'+ val;
+            }else {
+                return val;
+            }
+        }
+        setInterval(function(){
+            var val = new Date();
+            var ele = document.getElementById("time");
+            var hour = padding(val.getHours());
+            var minute = padding(val.getMinutes());
+            ele.innerHTML = hour + ":" + minute;
+            }, 1000);
+    </script>
+    <script type="text/javascript">
+            window.onload = function(){
+
+                if(navigator.geolocation){
+                    console.log("support geolocation");
+                    var positions = navigator.geolocation.getCurrentPosition(showPosition);
+                    var positions = navigator.geolocation.getCurrentPosition(showWeather);
+
+                }else{
+                    alert("Your browser does not support geolocation");
+                }
+
+
+                function showPosition(position){
+                        console.log("The current Location is " + position.coords.latitude + " " + position.coords.longitude);
+                        var lat = position.coords.latitude;
+                        var long= position.coords.longitude;
+                        var apikey = "AIzaSyBWJOaCCghulOXS1CS4W6UfvR9wswYhFPM";
+                        var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&key="+apikey;
+
+                        $.getJSON(url, function(json){
+                             console.log(json);
+                            var cityName = json.results[2].address_components[0].long_name;
+                            console.log(cityName);
+
+                            $("#cityName").html(cityName);
+                        });
+                }
+
+                function showWeather(position){
+                        console.log(position);
+                        var lat = position.coords.latitude;
+                        var long = position.coords.longitude;
+                        var apikey =  "69c389dfb563131f349a636a52ab2f89";
+
+                        var url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&APPID=69c389dfb563131f349a636a52ab2f89"
+                        $.getJSON(url, function(data){
+                            console.log(data);
+                            var weatherInfo= Math.round(data.main.temp/10);
+                            var weatherDescription = data.weather[0].description;
+                            $("#weather").html(weatherInfo);
+                            $("#description").html(weatherDescription);
+                        });
+                }
+            }
+    </script>
+
+</html>

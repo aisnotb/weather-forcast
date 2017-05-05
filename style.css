@@ -1,0 +1,86 @@
+body{
+    background-color: #000;
+    font-size: 1.75em;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+header{
+    text-align: center;
+    color: #aaa;
+}
+
+.container{
+    width: 100%;
+}
+
+.icon{
+    margin: 0 auto;
+}
+
+#icon1{
+    display: block;
+    margin: 0 auto;
+}
+
+.info{
+    /*border: 1px solid white;*/
+    margin-top: 23px;
+}
+
+span{
+    display: inline-block;
+    /*border: 1px solid white;*/
+    width: 32%;
+    text-align: center;
+}
+
+h2{
+    font-weight: lighter;
+    font-style: oblique;
+}
+
+.search{
+    /*border: 1px solid #fff;*/
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+input{
+    width: 300px;
+    height: 25px;
+    border: none;
+    outline: none; /* removes the blue ray */
+    margin-bottom: 20px;
+    border-radius: 3px;
+    text-indent: 10px;
+    border-style: none;
+}
+
+button{
+    width: auto;
+    height: 25px;
+    border-radius: 3px;
+    border: none;
+    background-color: #aaa;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover{
+    opacity: 0.8;
+}
+
+footer{
+    font-size: 0.5em;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 40%;
+}
+
+a{
+    text-decoration: none;
+    color: yellow;
+}
