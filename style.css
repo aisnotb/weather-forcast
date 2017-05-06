@@ -1,8 +1,18 @@
 body{
-    background-color: #000;
+    /*background-color: #000;*/
     font-size: 1.75em;
-    color: #fff;
+    /*color: #fff;*/
     box-sizing: border-box;
+    background: images/sunny.jpg;
+
+}
+
+.sunny{
+        background-image: url(images/sunny.jpg);
+}
+
+.rain{
+    background-image: url(images/rain.jpg);
 }
 
 header{
